@@ -1,0 +1,142 @@
+<?xml version="1.0"?>
+<overlay id="rebuildAppmenu"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+<!--
+// ==UserScript==
+// @name           rebuildAppmenu
+// @namespace     rebuildAppmenu.uc.xul@gmail.com
+// @description    自用Appmenu
+// @compatibility  Firefox 20+
+// @version        1.0.4     2013.03.28
+// @Author         defpt
+// ==/UserScript==
+-->
+    <vbox id="appmenuPrimaryPane">
+        <menuitem id="appmenu-restart" 
+        label="重启浏览器" 
+        class="menuitem-iconic"
+        image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA1klEQVR42mNgoCZwcnJiAuIIIN4IxK+A+D+U3gTEUSB5JLX16JpVgfgsVBMuDJJXA2kG8ZE1KwHxS6iih0CcCcSKQMwFxApQ/kOo/DeYgcjOPg0V3AHEfDi8xwvEt5FdBJOIhArcB2J+POFTj+4lmMQmqEAaKZqRDXgOFZAlN+r+QA1gIdeAt5S6YDPUgFRyDYhCigU+ItQfBmH05HseKR3w4kkH26HqrgIxK7KkClLaJ5QSQWGmgs0GZSC+SCAvXALlGUK5MQaItwLxC6imD1Cnx2CLagCrE7TimOQIRAAAAABJRU5ErkJggg=="
+		insertbefore="appmenu_newTab"
+        oncommand="Services.appinfo.invalidateCachesOnRestart() || Application.restart();" />
+        <menuitem id="appmenu_newPrivateWindow" 
+        label="新建隐私窗口"
+        class="menuitem-iconic" 
+        image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA20lEQVR42mNgoBQ4OTkdBmEkPi8Q5wJxhxMCdEDFeLEZ8B+KWYE4C4hfI4mh49dQNSC13EDci2zAFzwa0TFI7W8QmwFN4gMQXwbi71g0fYfKfUAS+41sQBHIaVBvmQDxXyQ5ENsEKscKVQsSf4RswFwgZkQKmzNIcmeQxBmhakHiC9G9AHLiaiBeBcTPkMSfQcVAcleQxM0ZSAg4dLwQPRqPk6D5HBDzoxsAitd2IH4D5d8B4nQovgMVewNVw42RkJD4TEAshCXBCYHkcKZESvLCwBsAyo1HyNUPAFr59v1e4pXxAAAAAElFTkSuQmCC"/>
+        <menuitem id="appmenu_safemode" 
+        label="安全模式"
+		insertafter="appmenu_newPrivateWindow"
+        class="menuitem-iconic" 
+        image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA0klEQVR42mNgAAInJydPIH4GxP+JxCC1ngwwQKJmuCHIBsAEbRgIAJAamHoMA6DsUiCeiQOXoqvHZsBMfHi4GwDEskDchceATqgaDANg6aAXiPXxGGAAVQNS+xTZgAKo4B8gdgHiOCyaY4DYGaoGpDYP2QBmIN4OlfgAxHpA7A7EM6DYDSr2AapmI0gPegrjB+KjUAWvgNgE6l9ZKPsVVO4wSC2uZMqD5JLPQBwP9c5nqNgWIOYilNZB3mkD4r9IsQNit2A4m4BBdkB8DoptcakDAFBrDWQKt8OGAAAAAElFTkSuQmCC"
+		oncommand="safeModeRestart();"/>
+		<menuitem id="appmenu-sanitizeHistory"
+        label="清理浏览痕迹" 
+        class="menuitem-iconic" 
+        image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAdUlEQVR42mNgwAOcnJyOAPFhBnIBUPN/EB7aBoDC4AjJNhLCtDOAYgA0fT8xGJfmOGK9AMQJ2AyYT4IB87EZcB8q+RNJITY2iL6PrlkBSeEbAmwYrYBsQDySwvsE2PcxwgHN/5cIsGH0Amz+B+GjBNgwGhwOAAxv3WzpCH5wAAAAAElFTkSuQmCC" 
+        oncommand="Cc['@mozilla.org/browser/browserglue;1'].getService(Ci.nsIBrowserGlue).sanitize(window);" />
+        <menuitem id="appmenu-option" 
+        label="打开选项" 
+        insertbefore="appmenu_find"
+        class="menuitem-iconic" 
+        image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABBUlEQVR42q2TSwrCQAyGu1OK9gGioO68hd31CO1x3Ai60o24E3ceQtwo9Q4K2ku4UAQfpf6BDIShrQ8c+GDon6RJJjGMnOP7fh3cwRN0jHcHRiVQ5bsNBiBlJqDBmgdM3dkEW7AHM3AWzgrKZs0ZRaAsA3gspB9CP7L0LFbCIAYhl2LzPRb6Qnd2wJXFI3AzeuSKIGRbU0IbDEX0oKDRodbYNn1MtPqsggCWZpv8JUAL9H4oYQyaSqiAEwsHamqGs8MNJpubGixpMNWeMeCULb7LZ9xk1bb7YpBo6LoyQJlHmYSlmAnJBcx5CqO8ffDEMvWF80j1hRaOFu+T7aR1fvAz567zC1y88fHJYEJlAAAAAElFTkSuQmCC" 
+        oncommand="openPreferences();"/>
+        <menuitem id="appmenu-Addon" 
+        label="附加组件" 
+        insertbefore="appmenu_find"
+        class="menuitem-iconic" 
+        image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAZElEQVR42mNgQAJOTk6tQPwZRDOQA4AavwHxf5AhDHQDQNsOQ20lBmN6DyjwkwQDML0HDbivJBhwllyvwg0hS9EQNABdAxY+8VGKwwDioxSHAV9IyjNEhQEBA35SlNGg3sNwNgBH7bnMGdLHkAAAAABJRU5ErkJggg==" 
+        oncommand="BrowserOpenAddonsMgr();"/>
+        <menuitem id="appmenu-history" 
+        label="历史记录" 
+        insertbefore="appmenu_find"
+        class="menuitem-iconic" 
+        image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABOUlEQVR42pWTu0oEQRBFx0TZH9Af0EB0cQPByGQiFTYRxEA0MnAj8UOUFWZ9hoZmxoLmgolvEYyMTIRFYX2fwtvYFjMDNpygu2/dqeqpShK30jQdgS24g3d4gRvYgVpStLjsgQw+4KsAu9swrQ/uhkOJOtCEURiEaViCPXiT5shiYoOWLh6gGp2fwAXUxQI8SrsZREOq1dzHXGYh9XpEAz5VzrCJ1iTazXmXPAPjQOdNE51pk/7DYEXn5yZ60qavxCAQ3mNe+3Zs0OuCu+DUGVw6g05cwrgz6IeJnPSNZcVcmXBVm5YLnioINvbjRwy/0RqoBgMwWRK8KP3Pb9QXMznew0xJ8Kya7beRclq5Desw5zow02CZ5vhPK8ukoimMh8nKenXDZJpK2VRWLT24Va3PcA3bNupe/w25ShMkCh869AAAAABJRU5ErkJggg==" 
+        oncommand="BrowserDownloadsUI();"/>
+        <menuitem id="appmenu-Bookmark" 
+        label="书签管理" 
+        insertbefore="appmenu_find"
+        class="menuitem-iconic" 
+        image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAb0lEQVR42mNwcnLyBOJnQPyfRAzS48lApma4IQxIHBsGEgBQ/RGwHpgBDCQCuB5sLkDz1jOiXIDsEmLE4HKjBtDOgFdAHAbFL8kxQB2IV0KxBkkGAHEIyFYkPogdis8ASjLTc5ABXiAGGZqfgPQCAKZ5ZToRpqI8AAAAAElFTkSuQmCC" 
+        oncommand="PlacesCommandHook.showPlacesOrganizer('AllBookmarks');"/>
+        <menuitem id="appmenu-Downloads" 
+        label="下载管理" 
+        insertbefore="appmenu_find"
+        class="menuitem-iconic" 
+        image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAa0lEQVR42mNgwAGcnJyOAPF/KD7MQCpA0gzGowYQaQAotNE1YsGHKTXgCCFXNODR3ECsVxqI1gx19mEChjTgSKmHGfCFMtSQBnyxxEBuPGMYAMQ2JGi2RjbgGRFRhws/BxngBWKQofkJSC8A7kTAGZ4aXdgAAAAASUVORK5CYII=" 
+        oncommand="BrowserDownloadsUI();"/>
+        <menuitem id="appmenu_savePage" 
+		label="页面另存为..."
+        class="menuitem-iconic"
+        image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAdklEQVR42mNwcnLyBOJnQPyfRAzS48mApvkdERqR1TxjQOIYMgABugYGKEDmA2l9OB+XQnwGoPBpbgBBA7FIHMFjwBGCBhALaGcAkG0NxL44sDUxBvjiw7R3AdlhAMRWJGi2RDaAnJwIw89BBniBGGRofgLSCwDDQxufnOjqdgAAAABJRU5ErkJggg=="/>
+        <menu id="webDeveloperMenu" label="Web 开发者" accesskey="W"><menupopup id="menuWebDeveloperPopup"><menu id="menu_webDeveloper_firebug" position="1" label="Firebug" class="menu-iconic" firebugRootNode="true"><menupopup id="menu_firebug_firebugMenuPopup" class="fbFirebugMenuPopup" onpopupshowing="return Firebug.browserOverlay.onMenuShowing(this, event);" onpopuphiding="return Firebug.browserOverlay.onMenuHiding(this, event);"></menupopup></menu><menuseparator insertafter="menu_webDeveloper_firebug" firebugRootNode="true"></menuseparator><menuitem id="menu_devToolbox" observes="devtoolsMenuBroadcaster_DevToolbox" accesskey="T" oncommand="gDevToolsBrowser.toggleToolboxCommand(gBrowser);" autocheck="false" type="checkbox" label="切换工具"></menuitem><menuitem id="menuitem_webconsole" observes="devtoolsMenuBroadcaster_webconsole" accesskey="W" oncommand="gDevToolsBrowser.selectToolCommand(gBrowser, &quot;webconsole&quot;);" key="key_webconsole" label="Web 控制台" acceltext="Ctrl+Shift+K"></menuitem><menuitem id="menuitem_inspector" observes="devtoolsMenuBroadcaster_inspector" accesskey="I" oncommand="gDevToolsBrowser.selectToolCommand(gBrowser, &quot;inspector&quot;);" key="key_inspector" label="查看器" acceltext="Ctrl+Shift+I"></menuitem><menuitem id="menuitem_jsdebugger" observes="devtoolsMenuBroadcaster_jsdebugger" accesskey="D" oncommand="gDevToolsBrowser.selectToolCommand(gBrowser, &quot;jsdebugger&quot;);" key="key_jsdebugger" label="调试器" acceltext="Ctrl+Shift+S"></menuitem><menuitem id="menuitem_styleeditor" observes="devtoolsMenuBroadcaster_styleeditor" accesskey="y" oncommand="gDevToolsBrowser.selectToolCommand(gBrowser, &quot;styleeditor&quot;);" key="key_styleeditor" label="样式编辑器" acceltext="Shift+F7"></menuitem><menuitem id="menuitem_jsprofiler" observes="devtoolsMenuBroadcaster_jsprofiler" accesskey="P" oncommand="gDevToolsBrowser.selectToolCommand(gBrowser, &quot;jsprofiler&quot;);" key="key_jsprofiler" label="分析器" acceltext="Shift+F5"></menuitem><menuitem id="menuitem_netmonitor" observes="devtoolsMenuBroadcaster_netmonitor" accesskey="N" oncommand="gDevToolsBrowser.selectToolCommand(gBrowser, &quot;netmonitor&quot;);" key="key_netmonitor" label="网络" acceltext="Ctrl+Shift+Q"></menuitem><menuseparator id="menu_devtools_separator"></menuseparator><menuitem id="menu_devToolbar" observes="devtoolsMenuBroadcaster_DevToolbar" accesskey="v" oncommand="DeveloperToolbar.toggle();" key="key_devToolbar" autocheck="false" type="checkbox" label="开发者工具栏" acceltext="Shift+F2"></menuitem><menuitem id="menu_chromeDebugger" observes="devtoolsMenuBroadcaster_ChromeDebugger" oncommand="DebuggerUI.toggleChromeDebugger();" disabled="true" hidden="true" label="浏览器调试器"></menuitem><menuitem id="menu_browserConsole" observes="devtoolsMenuBroadcaster_BrowserConsole" oncommand="HUDConsoleUI.toggleBrowserConsole();" disabled="true" hidden="true" label="浏览器控制台"></menuitem><menuitem id="menu_responsiveUI" observes="devtoolsMenuBroadcaster_ResponsiveUI" accesskey="R" oncommand="ResponsiveUI.toggle();" key="key_responsiveUI" autocheck="false" type="checkbox" label="自适应设计视图" acceltext="Ctrl+Shift+M"></menuitem><menuitem id="menu_scratchpad" observes="devtoolsMenuBroadcaster_Scratchpad" accesskey="s" oncommand="Scratchpad.openScratchpad();" key="key_scratchpad" label="代码片段速记器" acceltext="Shift+F4"></menuitem><menuitem id="menu_pageSource" observes="devtoolsMenuBroadcaster_PageSource" accesskey="o" oncommand="BrowserViewSourceOfDocument(content.document);" key="key_viewSource" label="页面源代码" acceltext="Ctrl+U"></menuitem><menuitem id="javascriptConsole" observes="devtoolsMenuBroadcaster_ErrorConsole" accesskey="C" oncommand="toJavaScriptConsole()" key="key_errorConsole" label="错误控制台" acceltext="Ctrl+Shift+J"></menuitem><menuitem id="menu_devtools_connect" observes="devtoolsMenuBroadcaster_connect" oncommand="gDevToolsBrowser.openConnectScreen(gBrowser)" disabled="true" hidden="true" label="连接…"></menuitem><menuseparator id="devToolsEndSeparator"></menuseparator><menuitem id="getMoreDevtools" observes="devtoolsMenuBroadcaster_GetMoreTools" accesskey="M" oncommand="openUILinkIn('https://addons.mozilla.org/firefox/collections/mozilla/webdeveloper/', 'tab');" label="获取更多工具"></menuitem></menupopup></menu>
+		<splitmenu id="appmenu_catalogue"
+		label="Firefox目录"
+		insertbefore="appmenu_print"
+		class="splitmenu-iconic">
+			<menupopup>
+				<menuitem id="appmenu-profilefolder" 
+				label="Profile" 
+				class="menuitem-iconic" 
+				image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAV0lEQVR42mNgQANOTk6eQPwMiP8TwCA1ngxYDCBGM9wQBnIBzBCynYxsAFlORjYAwoAKEnQyXQxAd/pIdAE9DXhOiQFPgNiL1JT4HJvJXiAJIjRDbEQDAH8sAWPC8aQTAAAAAElFTkSuQmCC" 
+				oncommand="Components.classes['@mozilla.org/file/directory_service;1'].getService(Components.interfaces.nsIProperties).get('ProfD', Components.interfaces.nsILocalFile).launch();" />
+				<menuitem id="appmenu-chromefolder" 
+				label="Chrome" 
+				class="menuitem-iconic" 
+				image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAApklEQVR42mNggAInJydPIH4GxP+JxCC1ngxIBpCiGW4ISOMRNEFrBgIAqCYEpp4BTEAE/8PYBDSLALEPsgEoLoAqeojH2S+B2BfDQkIuAMqxOkGAL4oB2FyARTMjEFsiafbFGwY4vPAKlwF4XQAUU0DT6Et0GCCFOG4DiIiFV4QMwBYG6CFOvAtwhDjxYQDEcURoLsNmADmZ6TmyAV4gARI0PwHpAQDbYi/L6+zZOgAAAABJRU5ErkJggg==" 
+				oncommand="Components.classes['@mozilla.org/file/directory_service;1'].getService(Components.interfaces.nsIProperties).get('UChrm', Components.interfaces.nsILocalFile).launch();" />
+				<menuitem label="CSS" 
+				class="menuitem-iconic" 
+				image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAoklEQVR42mNgoCZwcnLyBOJnUOxJSBybASAF/6H4GSFxbAbAFFUBMQ+SOA9UDCxPjAFsWOR48BoAlJAgZAOSBRLYJPuhkpfwGHAdqmYCukQxEP8D4qdArIPHAB2oGpDaEmSJUqjJxBjwBKq2FF1yNlTiBh4DbkDVTMMmKU1CIErjVUDIAGITEjeSODexCQk5yT4nJI7NAC+QAmhIexESpwoAAPYSkppAIzNUAAAAAElFTkSuQmCC"
+				oncommand="openUChrmfile('CSS')"/>
+				<menuitem label="SubScript" 
+				class="menuitem-iconic" 
+				image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAYUlEQVR42mNgoAZwcnJqBeLPWMQ/g+SIMeAPEP/HIv4fiH8SY8B/PAb8H0IGALE1kpg1KQY8QzKEGPwTJXaAHC8gfk6iIZ/J8hqpCYy4MKC5AZR44RmlgYgrdn4RlcmIAQDDGYaJrtr5ZAAAAABJRU5ErkJggg=="
+				oncommand="openUChrmfile('SubScript')"/>
+				<menuitem label="UserScriptLoader" 
+				class="menuitem-iconic" 
+				image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAd0lEQVR42mNgGFTAyclJDoh3AfFnIP6PB3+GqpNDN2A3AY3oeD+6ATCbbaCuAbF/YnGpDVY5mMlQdgU5LkA2oBiPxi9Q78rjNABHIOOVR3cBiq0kG0C0PLa4J8kF2OKeVBfAbNYl0oCfVE99clBDvhDQiD3uKQUAMzDR0XUWC64AAAAASUVORK5CYII="
+				oncommand="openUChrmfile('UserScriptLoader')"/>
+			</menupopup>
+		</splitmenu>
+		<splitmenu id="appmenu_list"
+		label="Firefox配置文件"
+		insertbefore="appmenu_print"
+		class="splitmenu-iconic">
+			<menupopup>
+				<menuitem label="userChrome.css" 
+				class="menuitem-iconic"
+				oncommand="openUChrmfile('userChrome.css');"/>
+				<menuitem label="userContent.css" 
+				class="menuitem-iconic" 
+				oncommand="openUChrmfile('userContent.css');"/>
+				<menuitem label="prefs.js" 
+				class="menuitem-iconic"
+				oncommand="openProfDfile('prefs.js');"/>
+				<menuitem label="user.js" 
+				class="menuitem-iconic"
+				oncommand="openProfDfile('user.js');"/>
+			</menupopup>
+		</splitmenu>
+		<menuitem id="appmenu_about"
+		label="about:about"
+		insertbefore="appmenu_print"
+		class="menuitem-iconic"
+        image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAaklEQVR42mNgGHTAycnJAIj3A3ECklgCVMyAGM3vgfg/SAOS+H6o2HuchgAlFJA0oyhEMxhEK6BrFgDi8/hsQTMEpFaAaM14DQES66EC/wkGEsIQmPr1VDGAMi9QHIhUiUaqJCSqJOUBAQDF4pEx3If3EAAAAABJRU5ErkJggg==" 
+        oncommand="gBrowser.selectedTab = gBrowser.addTab('about:about');" />
+		<menuitem id="appmenu-aboutfirefox"
+            label="关于火狐"
+            class="menuitem-iconic"      image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADvSURBVDhPpVPdCcIwEK4j6GtXcIRCm0YykwiiuI9CHcA+dJW+qgMo1O/CBS72UikWjl7y/eTyc1kmvrquc2PMFf9BC8ZyqYlyIX7AQIuBOEkDiJ60clEUSy24qqdqAPAA93uq/DDPnFNkArD5JVTwxpvAcU8g/r21doOpRXKPwMAF1fSsOZLBjQcuCJ1zKy0CXlWVZU2bIXnRgMCyLNcw7CausSMOcdng7ZNgIMRT19gFA6+TFUiz72uMRLKCcAYKIaoiYdDSIW7DFuZWAP7OHyyS89wKsPBldN1/PWV+VMlOFE95splCO1NTjUJr5w9m4hHHLuLCvgAAAABJRU5ErkJggg=="
+            oncommand="openAboutDialog();" />
+    </vbox>
+    <script type="application/x-javascript">
+		<![CDATA[
+		function openProfDfile(p) {
+			var file = Components.classes['@mozilla.org/file/directory_service;1'].getService(Components.interfaces.nsIProperties).get("ProfD", Components.interfaces.nsILocalFile);
+			file.append(p);file.launch();
+		}
+		function openUChrmfile(p) {
+			var file = Components.classes['@mozilla.org/file/directory_service;1'].getService(Components.interfaces.nsIProperties).get("UChrm", Components.interfaces.nsILocalFile);
+			file.append(p);file.launch();
+		}
+		]]>
+    </script>
+</overlay>

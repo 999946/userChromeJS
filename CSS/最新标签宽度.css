@@ -1,0 +1,15 @@
+@namespace url(http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul);
+.tabbrowser-tab:not([pinned=true])[fadein] {
+  min-width: 120px !important;
+  max-width: 150px !important;
+}
+
+.tabbrowser-tab:not([pinned=true])[selected=true] .tab-close-button {
+  margin-left: -2px !important;
+  margin-right: 1px !important;
+}
+
+.tabbrowser-tab:not([pinned=true]) {
+  border-left-width: 0px !important;
+  border-right-width: 0px !important;
+}

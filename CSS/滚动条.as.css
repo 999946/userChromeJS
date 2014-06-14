@@ -1,0 +1,59 @@
+/*AGENT_SHEET */
+@namespace url(http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul);
+        scrollbar *
+        scrollbar scrollbarbutton { display: none ! important; }
+        scrollbar scrollbarbutton { visibility: collapse !important }
+		scrollbar[orient="vertical"]{
+        background: transparent url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAACCAYAAABsfz2XAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAAhSURBVHjaYvj//z8DMvb39/+PLoaMmRhIBAAAAAD//wMAB6Qizv4lfkgAAAAASUVORK5CYII=") ! important;
+        -moz-appearance: none !important;
+        background-color: transparent !important;
+        min-width: 6px !important;
+        max-width: 6px !important;
+        border: 0px !important;
+        }
+        scrollbar[orient="vertical"]:hover{
+        -moz-appearance: none !important;
+        background-color: transparent !important;
+        min-width: 6px !important;
+        max-width: 6px !important;
+        border: 0px !important;
+        }
+        scrollbar thumb[orient="vertical"]{
+        background: transparent url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAAnSURBVHjaYmQofPWfgQjwv0+UkYGBgYGJgUQwqmGkaAAAAAD//wMA+/4EFULQY9sAAAAASUVORK5CYII=") ! important;
+        -moz-appearance: none !important;
+        min-width: 6px !important;
+        max-width: 6px !important;
+        border: 0px !important;
+        }
+		scrollbar thumb[orient="vertical"]:hover{
+		background: transparent url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAAnSURBVHjaYmQofPWfgQjwv0+UkYGBgYGJgUQwqmGkaAAAAAD//wMA+/4EFULQY9sAAAAASUVORK5CYII=") ! important;
+        border: 0px !important;
+        }
+		scrollbar[orient="horizontal"]{
+		-moz-appearance: none !important;
+        background-color: transparent !important;
+        min-height: 6px !important;
+        max-height: 6px !important;
+		border: 0px !important;
+        }
+        scrollbar[orient="horizontal"]:hover{
+        -moz-appearance: none !important;
+        background-color: transparent !important;
+        min-height: 6px !important;
+        max-height: 6px !important;
+		border: 0px !important;
+        }
+		scrollbar thumb[orient="horizontal"]{
+        background: transparent url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAAmSURBVHjaYmQofPWfgQTAxEAiGNUwODQw/v//n7Y2AAAAAP//AwCb0AVuQc6u0wAAAABJRU5ErkJggg==") ! important;
+        -moz-appearance: none !important;
+        min-height: 6px !important;
+        max-height: 6px !important;
+        border: 0px !important;
+        margin-left: 0px !important;
+        }
+		scrollbar thumb[orient="horizontal"]:hover{
+		background: transparent url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAAmSURBVHjaYmQofPWfgQTAxEAiGNUwODQw/v//n7Y2AAAAAP//AwCb0AVuQc6u0wAAAABJRU5ErkJggg==") ! important;
+        border: 0px !important;
+        }
+		scrollcorner{opacity: 0 !important;}
+		scrollbar scrollcorner:hover {background:transparent !important;}
