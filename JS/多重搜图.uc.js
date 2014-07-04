@@ -18,7 +18,19 @@ location == "chrome://browser/content/browser.xul" && (function () {
 		},{
 		name:'搜狗识图',
 		url:'http://pic.sogou.com/ris?query='
-	}];
+		},{
+		name:'Bing',
+		url:'http://cn.bing.com/images/searchbyimage?FORM=IRSBIQ&cbir=sbi&imgurl='
+		},{
+		name:'SauceNAO',
+		url:'http://saucenao.com/search.php?db=999&url='
+		},{
+		name:'Яндекс (Yandex)',
+		url:'http://yandex.ru/images/search?rpt=imageview&img_url='
+		},{
+		name:'IQDB',
+		url:'http://iqdb.org/?url='
+		}];
 	(function (m) {
 		m.id = "CBIR-search";
 		m.setAttribute("label", "\u641C\u7D22\u7C7B\u4F3C\u56FE\u7247");
