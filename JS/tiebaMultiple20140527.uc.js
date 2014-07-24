@@ -5,9 +5,9 @@
 // @include        main
 // @license        MIT License
 // @charset        UTF-8
-// @version        2014/05/26
+// @version        2014/05/27
 // @description    贴吧马甲切换
-//				   2014/05/26 1.修改马甲过多列表太长不是滚动的问题2.新添加马甲篡改到之前马甲的问题
+//				   2014/05/27 1.修改马甲过多列表太长不能滚动的问题2.新添加马甲篡改到之前马甲的问题
 // ==/UserScript==
 var tiebaUtil = {
 	getUserName : function () {
